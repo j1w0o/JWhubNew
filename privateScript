@@ -1,0 +1,61 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
+local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
+
+local key = "ef2AGTg"
+
+local Window = Fluent:CreateWindow({
+    Title = "Fluent " .. Fluent.Version,
+    SubTitle = "by dawid",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(500, 275),
+    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
+    Theme = "Amethyst"
+})
+
+--Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
+local Tabs = {
+    Main = Window:AddTab({ Title = "Key System", Icon = "" })
+}
+
+do
+    local Input = Tabs.Main:AddInput("Input", {
+        Title = "Key System",
+        Default = "Key System",
+        Placeholder = "Input Your key here",
+        Numeric = false, -- Only allows numbers
+        Finished = false, -- Only calls callback when you press enter
+        Callback = function(Value)
+            -- none
+        end
+    })
+
+    Tabs.Main:AddButton({
+        Title = "Redeem Key",
+        Description = "Press to redeem key !",
+        Callback = function()
+            local userinput = Input.Value
+            if userinput == key then
+              Fluent:Notify({
+              Title = "Success ✅",
+              Content = "The key is vaild! Loading Script ...",
+              SubContent = "", -- Optional
+              Duration = 5 -- Set to nil to make the notification not disappear
+              })
+              wait(1)
+              loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
+            else
+              error("Invaild Key")
+            end
+        end
+    })
+    Tabs.Main:AddButton({
+    Title = "Get Key",
+    Description = "Click this to get Key",
+    Callback = function()
+        local linkToCopy = "ef2AGTg"  -- [복사할 링크]
+        setclipboard(linkToCopy) 
+        print("링크가 클립보드에 복사되었습니다: " .. linkToCopy)
+    end
+})
+end
